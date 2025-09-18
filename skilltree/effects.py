@@ -2,13 +2,15 @@
 from skilltree.schema import AddStatsEffect, AddSkillEffect, EffectSpec
 from skills.skill_factory import SkillFactory
 
+
 def _fmt_pct(x: float) -> str:
     return f"{int(round(x * 100))}%"
+
 
 class EffectApplier:
     """
     Kapselt die Anwendung von Effekten (SRP) + nicht-mutierende Vorschau.
-    Achtet auf Caps: armor≤0.8, crit≤1.0, dodge≤0.6.
+    Achtet auf Caps: armor ≤ 0.8, crit ≤ 1.0, dodge ≤ 0.6.
     """
 
     # ---------- Vorschau (mutiert NICHT) ----------
@@ -16,7 +18,7 @@ class EffectApplier:
         """
         Liefert eine Liste beschreibender Strings wie:
         ['ATK: 12 -> 15', 'Rüstung: 10% -> 13%'].
-        Für AddSkillEffect: ['Neue Fähigkeit: ...'].
+        Für AddSkillEffect: ['Neue Fähigkeit: ... — Beschreibung (Kosten: X Mana)'].
         """
         lines = []
         if isinstance(effect, AddStatsEffect):
@@ -58,7 +60,16 @@ class EffectApplier:
         elif isinstance(effect, AddSkillEffect):
             try:
                 skill = SkillFactory.create(effect.skill_name)
-                lines.append(f"Neue Fähigkeit: {skill.get_name()}")
+                desc = skill.get_description() if hasattr(skill, "get_description") else ""
+                cost = getattr(skill, "mana_cost", None)
+                if desc and cost is not None:
+                    lines.append(
+                        f"Neue Fähigkeit: {skill.get_name()} — {desc} (Kosten: {cost} Mana)"
+                    )
+                elif desc:
+                    lines.append(f"Neue Fähigkeit: {skill.get_name()} — {desc}")
+                else:
+                    lines.append(f"Neue Fähigkeit: {skill.get_name()}")
             except Exception:
                 lines.append(f"Neue Fähigkeit: {effect.skill_name}")
         return lines
@@ -89,13 +100,19 @@ class EffectApplier:
         # Prozentwerte mit Caps
         if e.armor_add:
             p.armor = min(0.8, p.armor + e.armor_add)
-            notifier.notify(f"🛡️ Rüstung +{int(e.armor_add*100)}% (jetzt {int(p.armor*100)}%)")
+            notifier.notify(
+                f"🛡️ Rüstung +{int(e.armor_add*100)}% (jetzt {int(p.armor*100)}%)"
+            )
         if e.crit_add:
             p.crit_chance = min(1.0, p.crit_chance + e.crit_add)
-            notifier.notify(f"🎯 Krit +{int(e.crit_add*100)}% (jetzt {int(p.crit_chance*100)}%)")
+            notifier.notify(
+                f"🎯 Krit +{int(e.crit_add*100)}% (jetzt {int(p.crit_chance*100)}%)"
+            )
         if e.dodge_add:
             p.dodge_chance = min(0.6, p.dodge_chance + e.dodge_add)
-            notifier.notify(f"💨 Ausweichen +{int(e.dodge_add*100)}% (jetzt {int(p.dodge_chance*100)}%)")
+            notifier.notify(
+                f"💨 Ausweichen +{int(e.dodge_add*100)}% (jetzt {int(p.dodge_chance*100)}%)"
+            )
 
         if e.spell_power:
             p.spell_power += e.spell_power
@@ -110,4 +127,6 @@ class EffectApplier:
             notifier.notify(f"ℹ️ Fähigkeit {skill.get_name()} ist bereits freigeschaltet.")
             return
         p.skills.append(skill)
-        notifier.notify(f"✨ Neue Fähigkeit freigeschaltet: {skill.get_name()}")
+        notifier.notify(
+            f"✨ Neue Fähigkeit freigeschaltet: {skill.get_name()} — {skill.get_description()}"
+        )

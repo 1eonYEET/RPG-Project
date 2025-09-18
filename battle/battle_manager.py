@@ -16,6 +16,8 @@ class BattleManager:
         if getattr(self.enemy, "is_boss", False) and getattr(self.enemy, "portrait", None):
             self.notifier.notify(f"\n{self.enemy.portrait}")
 
+        self.player._combat_id = getattr(self.player, "_combat_id", 0) + 1
+
         while self.player.is_alive() and self.enemy.is_alive():
             self._round_number += 1
 
@@ -35,7 +37,11 @@ class BattleManager:
                 self.notifier.notify(f"🎉 Du hast {self.enemy.name} besiegt!")
                 if hasattr(self.enemy, "gold_reward"):
                     self.player.gold += self.enemy.gold_reward
-                    self.notifier.notify(f"💰 Beute: +{self.enemy.gold_reward}g (Gesamt: {self.player.gold}g)")
+                    # ✅ NEU: Gesamt-Gold mitzählen (Shop-Ausgaben ändern diesen Wert NICHT)
+                    if not hasattr(self.player, "total_gold_earned"):
+                        self.player.total_gold_earned = 0
+                    self.player.total_gold_earned += self.enemy.gold_reward
+                    self.notifier.notify(f"💰 Beute: +{self.enemy.gold_reward}g (Geldbeutel: {self.player.gold}g)")
                 if hasattr(self.enemy, "xp_reward"):
                     self.player.gain_xp(self.enemy.xp_reward, self.notifier)
 

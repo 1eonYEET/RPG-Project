@@ -1,13 +1,12 @@
-from abc import ABC, abstractmethod
-
-class Skill(ABC):
-    def __init__(self, name: str, mana_cost: int):
-        self.name = name
+# skills/skill.py
+class Skill:
+    def __init__(self, name: str, mana_cost: int = 0, description: str = ""):
+        self._name = name
         self.mana_cost = mana_cost
+        self._description = description  # neu
 
-    @abstractmethod
-    def use(self, user, target, logger):
-        pass
+    def get_name(self) -> str:
+        return self._name
 
-    def get_name(self):
-        return self.name
+    def get_description(self) -> str:
+        return self._description or ""

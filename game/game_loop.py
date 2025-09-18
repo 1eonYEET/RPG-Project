@@ -15,23 +15,32 @@ class GameLoop:
         self.shop = Shop()
 
     def _choose_class(self):
-        print("Wähle deine Klasse:")
-        print("1. 🛡️ Tank   – mehr HP & Rüstung, schwächerer Dodge/DMG, besseres Heilen")
-        print("2. 🗡️ Assassin – höherer DMG, Dodge & Crit, weniger HP")
-        print("3. 🔮 Mage    – mehr Mana, effektivere Zauber")
-        print("4. ⚔️ Knight  – ausgewogener Mix")
+        while True:
+            print("Wähle deine Klasse:")
+            print("1. 🛡️ Tank   – mehr HP & Rüstung, schwächerer Dodge/DMG, besseres Heilen")
+            print("2. 🗡️ Assassin – höherer DMG, Dodge & Crit, weniger HP")
+            print("3. 🔮 Mage    – mehr Mana, effektivere Zauber")
+            print("4. ⚔️ Knight  – ausgewogener Mix")
+            print("L. 🏆 Leaderboard ansehen")
 
-        choice = input("Deine Wahl: ")
-        name = input("Gib deinem Helden einen Namen: ") or "Held"
+            choice = input("Deine Wahl: ").strip().lower()
 
-        if choice == "1":
-            return Tank(name)
-        elif choice == "2":
-            return Assassin(name)
-        elif choice == "3":
-            return Mage(name)
-        else:
-            return Knight(name)  # Default
+            if choice == "l":
+                tracker = RunTracker()
+                tracker.print_leaderboard(sort_by="kills",limit=10, desc=True)
+                input("Weiter mit Enter ...")
+                continue
+
+            name = input("Gib deinem Helden einen Namen: ") or "Held"
+
+            if choice == "1":
+                return Tank(name)
+            elif choice == "2":
+                return Assassin(name)
+            elif choice == "3":
+                return Mage(name)
+            else:
+                return Knight(name)  # Default
 
     def start(self):
         self.notifier.notify("🏟️ ARENA-MODUS: Endlose Kampfwellen!")
@@ -50,11 +59,13 @@ class GameLoop:
                 self.notifier.notify("\n☠️ Du wurdest besiegt...")
                 break
 
-            if getattr(enemy, "is_boss", False):
+            was_boss = bool(getattr(enemy, "is_boss", False))
+
+            if was_boss:
                 self.wave_manager.boss_defeated_increase_tier()
                 self.notifier.notify(f"🔼 Die Gegner werden stärker! (Tier {self.wave_manager.tier})")
 
-            self._post_fight_recovery()
+            self._post_fight_recovery(boss=was_boss)
 
             if self.wave_manager.wave_number % 5 == 0:
                 # ⬇️ Tier an Shop geben (für Preisfaktor)
@@ -66,7 +77,7 @@ class GameLoop:
         rec = RunRecord(
             name=getattr(self.player, "name", "Spieler"),
             klass=getattr(self.player, "archetype", "Unbekannt"),
-            gold=int(getattr(self.player, "gold", 0)),
+            total_gold=int(getattr(self.player, "total_gold_earned", 0)),  # ✅ Summe!
             level=int(getattr(self.player, "level", 1)),
             kills=int(getattr(self.player, "kills", 0)),
             dt=datetime.utcnow().isoformat(timespec="seconds")
@@ -74,13 +85,22 @@ class GameLoop:
         tracker.log_run(rec)
         self.notifier.notify("📝 Run gespeichert (data/runs.jsonl).")
 
-    def _post_fight_recovery(self):
+    def _post_fight_recovery(self, boss: bool = False):
         """Zwischen den Wellen: KEINE HP-Heilung mehr. Nur Mana voll."""
         before = getattr(self.player, "mana", 0)
         self.player.mana = self.player.max_mana
-        gained = self.player.mana - before
+        mana_gained = self.player.mana - before
         # rein informativ, damit es klar sichtbar ist
-        self.notifier.notify(
-            f"🔷 Mana aufgefüllt (+{gained}). "
-            f"HP bleiben bei {self.player.hp}/{self.player.max_hp}."
-        )
+
+        if boss:
+            hp_before = self.player.hp
+            self.player.hp = self.player.max_hp
+            self.notifier.notify(
+                f"👑 Boss besiegt! ❤️ HP voll ({hp_before}->{self.player.max_hp}) • "
+                f"🔷 Mana aufgefüllt (+{mana_gained})."
+            )
+        else:
+            self.notifier.notify(
+                f"🔷 Mana aufgefüllt (+{mana_gained}). "
+                f"HP bleiben bei {self.player.hp}/{self.player.max_hp}."
+            )

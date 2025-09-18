@@ -1,131 +1,171 @@
 {
   "generic": {
     "2": [
-      {
-        "id": "offense_1",
-        "name": "Klingenhieb I",
-        "desc": "+2 Angriff",
-        "effect": { "add_stats": { "attack": 2 } }
-      },
-      {
-        "id": "defense_1",
-        "name": "Zähigkeit I",
-        "desc": "+10 Max-HP, +3% Rüstung",
-        "effect": { "add_stats": { "hp": 10, "armor_add": 0.03 } }
-      },
-      {
-        "id": "utility_1",
-        "name": "Alchemist I",
-        "desc": "Heiltränke +20% wirksamer",
-        "effect": { "add_stats": { "heal_power": 0.2 } }
-      }
+      { "id": "offense_1", "name": "Klingenhieb I", "desc": "+2 Angriff",
+        "effect": { "add_stats": { "attack": 2 } } },
+      { "id": "defense_1", "name": "Zähigkeit I", "desc": "+10 Max-HP, +3% Rüstung",
+        "effect": { "add_stats": { "hp": 10, "armor_add": 0.03 } } },
+      { "id": "utility_1", "name": "Alchemist I", "desc": "Heiltränke +20% wirksamer",
+        "effect": { "add_stats": { "heal_power": 0.2 } } }
     ],
     "6": [
-      {
-        "id": "offense_2",
-        "name": "Klingenhieb II",
-        "desc": "+3 Angriff",
-        "requires": ["offense_1"],
-        "effect": { "add_stats": { "attack": 3 } }
-      },
-      {
-        "id": "defense_2",
-        "name": "Zähigkeit II",
-        "desc": "+10 Max-HP, +2 DEF",
-        "requires": ["defense_1"],
-        "effect": { "add_stats": { "hp": 10, "defense": 2 } }
-      },
-      {
-        "id": "utility_2",
-        "name": "Taktiker",
-        "desc": "+5 Max-Mana, +10% Zauberkraft",
-        "requires": ["utility_1"],
-        "effect": { "add_stats": { "mana": 5, "spell_power": 0.1 } }
-      }
+      { "id": "offense_2", "name": "Klingenhieb II", "desc": "+3 Angriff",
+        "requires": ["offense_1"], "effect": { "add_stats": { "attack": 3 } } },
+      { "id": "defense_2", "name": "Zähigkeit II", "desc": "+10 Max-HP, +2 DEF",
+        "requires": ["defense_1"], "effect": { "add_stats": { "hp": 10, "defense": 2 } } },
+      { "id": "utility_2", "name": "Taktiker", "desc": "+5 Max-Mana, +10% Zauberkraft",
+        "requires": ["utility_1"], "effect": { "add_stats": { "mana": 5, "spell_power": 0.1 } } }
+    ],
+    "10": [
+      { "id": "offense_3", "name": "Klingenhieb III", "desc": "+4 Angriff",
+        "requires": ["offense_2"], "effect": { "add_stats": { "attack": 4 } } },
+      { "id": "defense_3", "name": "Zähigkeit III", "desc": "+15 Max-HP, +1 DEF",
+        "requires": ["defense_2"], "effect": { "add_stats": { "hp": 15, "defense": 1 } } },
+      { "id": "utility_3", "name": "Alchemist II", "desc": "Heiltränke +20% wirksamer (additiv)",
+        "requires": ["utility_2"], "effect": { "add_stats": { "heal_power": 0.2 } } }
+    ],
+    "12": [
+      { "id": "precision_1", "name": "Präzision", "desc": "+4% Krit-Chance",
+        "effect": { "add_stats": { "crit_add": 0.04 } } },
+      { "id": "evasion_1", "name": "Ausweichrolle", "desc": "+4% Ausweichen",
+        "effect": { "add_stats": { "dodge_add": 0.04 } } },
+      { "id": "ward_1", "name": "Schutzkunde", "desc": "+3% Rüstung",
+        "effect": { "add_stats": { "armor_add": 0.03 } } }
+    ],
+    "15": [
+      { "id": "edge_mastery", "name": "Waffenkunde", "desc": "+3 Angriff, +3% Krit",
+        "effect": { "add_stats": { "attack": 3, "crit_add": 0.03 } } },
+      { "id": "battle_hardened", "name": "Kampferprobt", "desc": "+20 Max-HP, +1 DEF",
+        "effect": { "add_stats": { "hp": 20, "defense": 1 } } },
+      { "id": "mystic_focus", "name": "Mystischer Fokus", "desc": "+6 Max-Mana, +12% Zauberkraft",
+        "effect": { "add_stats": { "mana": 6, "spell_power": 0.12 } } }
     ]
   },
+
   "Tank": {
     "4": [
-      {
-        "id": "stone_skin",
-        "name": "Steinhaut",
-        "desc": "+10% Rüstung",
-        "effect": { "add_stats": { "armor_add": 0.10 } }
-      },
-      {
-        "id": "vitality",
-        "name": "Vitalität",
-        "desc": "+20 Max-HP",
-        "effect": { "add_stats": { "hp": 20 } }
-      }
+      { "id": "stone_skin", "name": "Steinhaut", "desc": "+10% Rüstung",
+        "effect": { "add_stats": { "armor_add": 0.10 } } },
+      { "id": "vitality", "name": "Vitalität", "desc": "+20 Max-HP",
+        "effect": { "add_stats": { "hp": 20 } } }
+    ],
+    "6": [
+      { "id": "iron_will", "name": "Eiserner Wille", "desc": "+1 DEF, +5% Rüstung",
+        "effect": { "add_stats": { "defense": 1, "armor_add": 0.05 } } },
+      { "id": "unyielding", "name": "Unbeugsam", "desc": "+15 Max-HP, +5% Heilbonus",
+        "effect": { "add_stats": { "hp": 15, "heal_power": 0.05 } } }
     ],
     "8": [
-      {
-        "id": "guardian",
-        "name": "Wächter",
-        "desc": "+2 DEF, +10% Heilbonus",
-        "effect": { "add_stats": { "defense": 2, "heal_power": 0.1 } }
-      }
+      { "id": "guardian", "name": "Wächter", "desc": "+2 DEF, +10% Heilbonus",
+        "effect": { "add_stats": { "defense": 2, "heal_power": 0.1 } } }
+    ],
+    "10": [
+      { "id": "bulwark", "name": "Bollwerk", "desc": "+30 Max-HP, +2 DEF",
+        "effect": { "add_stats": { "hp": 30, "defense": 2 } } },
+      { "id": "hardened_plate", "name": "Gehärtete Platte", "desc": "+6% Rüstung",
+        "effect": { "add_stats": { "armor_add": 0.06 } } }
+    ],
+    "12": [
+      { "id": "adamant", "name": "Unerschütterlich", "desc": "+7% Rüstung, +10 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.07, "hp": 10 } } },
+      { "id": "ultimate_tank", "name": "Ultimative Fähigkeit: Unzerstörbar",
+        "desc": "Heilt 40% HP & setzt Rüstung für 2 Runden auf 80% (einmal pro Kampf).",
+        "effect": { "add_skill": "Unzerstoerbar" } }
     ]
   },
+
   "Assassin": {
     "4": [
-      {
-        "id": "crit_1",
-        "name": "Kritische Präzision",
-        "desc": "+7% Krit-Chance",
-        "effect": { "add_stats": { "crit_add": 0.07 } }
-      },
-      {
-        "id": "dodge_1",
-        "name": "Schattenbewegung",
-        "desc": "+7% Ausweichen",
-        "effect": { "add_stats": { "dodge_add": 0.07 } }
-      }
+      { "id": "crit_1", "name": "Kritische Präzision", "desc": "+7% Krit-Chance",
+        "effect": { "add_stats": { "crit_add": 0.07 } } },
+      { "id": "dodge_1", "name": "Schattenbewegung", "desc": "+7% Ausweichen",
+        "effect": { "add_stats": { "dodge_add": 0.07 } } }
+    ],
+    "6": [
+      { "id": "crit_2", "name": "Tödlicher Fokus", "desc": "+8% Krit-Chance",
+        "requires": ["crit_1"], "effect": { "add_stats": { "crit_add": 0.08 } } },
+      { "id": "fleetfoot", "name": "Leichtfüßig", "desc": "+8% Ausweichen",
+        "requires": ["dodge_1"], "effect": { "add_stats": { "dodge_add": 0.08 } } }
     ],
     "8": [
-      {
-        "id": "piercing_strike_unlock",
-        "name": "Durchdringender Schlag",
-        "desc": "Neue Fähigkeit: Durchdringender Schlag",
-        "effect": { "add_skill": "PiercingStrike" }
-      }
+      { "id": "piercing_strike_unlock", "name": "Durchdringender Schlag",
+        "desc": "Physischer Angriff, der 25% der gegnerischen Verteidigung ignoriert",
+        "effect": { "add_skill": "PiercingStrike" } }
+    ],
+    "10": [
+      { "id": "ambush", "name": "Hinterhalt", "desc": "+4 Angriff, +5% Krit",
+        "effect": { "add_stats": { "attack": 4, "crit_add": 0.05 } } },
+      { "id": "shadowdance", "name": "Schattentanz", "desc": "+6% Ausweichen, +2% Rüstung",
+        "effect": { "add_stats": { "dodge_add": 0.06, "armor_add": 0.02 } } }
+    ],
+    "12": [
+      { "id": "assassins_guile", "name": "Assassinenlist",
+        "desc": "+3 Angriff, +4% Krit, +3% Ausweichen",
+        "effect": { "add_stats": { "attack": 3, "crit_add": 0.04, "dodge_add": 0.03 } } },
+      { "id": "ultimate_assassin", "name": "Ultimative Fähigkeit: Tödlicher Schlag",
+        "desc": "Garantierter Crit +50% Bonus-Schaden (einmal pro Kampf).",
+        "effect": { "add_skill": "ToedlicherSchlag" } }
     ]
   },
+
   "Mage": {
     "4": [
-      {
-        "id": "arcane_focus",
-        "name": "Arkaner Fokus",
-        "desc": "+30% Zauberkraft, +5 Mana",
-        "effect": { "add_stats": { "spell_power": 0.3, "mana": 5 } }
-      }
+      { "id": "arcane_focus", "name": "Arkaner Fokus", "desc": "+30% Zauberkraft, +5 Mana",
+        "effect": { "add_stats": { "spell_power": 0.3, "mana": 5 } } }
+    ],
+    "6": [
+      { "id": "essence_tap", "name": "Essenzanzapfung", "desc": "+8 Max-Mana, +15% Zauberkraft",
+        "effect": { "add_stats": { "mana": 8, "spell_power": 0.15 } } },
+      { "id": "warding_runes", "name": "Schutzrunen", "desc": "+3% Rüstung, +5 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.03, "hp": 5 } } }
     ],
     "8": [
-      {
-        "id": "mana_shield",
-        "name": "Manaschild",
-        "desc": "+5% Rüstung, +10 Max-HP",
-        "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } }
-      }
+      { "id": "mana_shield", "name": "Manaschild", "desc": "+5% Rüstung, +10 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } } }
+    ],
+    "10": [
+      { "id": "empowered_casting", "name": "Gestärkte Zauber", "desc": "+25% Zauberkraft",
+        "effect": { "add_stats": { "spell_power": 0.25 } } },
+      { "id": "arcane_flow", "name": "Arkaner Fluss", "desc": "+6 Max-Mana, +4% Krit",
+        "effect": { "add_stats": { "mana": 6, "crit_add": 0.04 } } }
+    ],
+    "12": [
+      { "id": "arcane_mastery", "name": "Arkane Meisterschaft",
+        "desc": "+10 Max-Mana, +20% Zauberkraft",
+        "effect": { "add_stats": { "mana": 10, "spell_power": 0.20 } } },
+      { "id": "ultimate_mage", "name": "Ultimative Fähigkeit: Arkaner Sturm",
+        "desc": "Massiver magischer Schaden (einmal pro Kampf).",
+        "effect": { "add_skill": "ArkanerSturm" } }
     ]
   },
+
   "Knight": {
     "4": [
-      {
-        "id": "balanced_1",
-        "name": "Ausgewogenheit I",
-        "desc": "+1 ATK, +1 DEF, +10 Max-HP",
-        "effect": { "add_stats": { "attack": 1, "defense": 1, "hp": 10 } }
-      }
+      { "id": "balanced_1", "name": "Ausgewogenheit I", "desc": "+1 ATK, +1 DEF, +10 Max-HP",
+        "effect": { "add_stats": { "attack": 1, "defense": 1, "hp": 10 } } }
+    ],
+    "6": [
+      { "id": "versatility", "name": "Vielseitigkeit", "desc": "+2 ATK, +2 DEF",
+        "effect": { "add_stats": { "attack": 2, "defense": 2 } } },
+      { "id": "shield_training", "name": "Schildausbildung", "desc": "+3% Rüstung, +5 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.03, "hp": 5 } } }
     ],
     "8": [
-      {
-        "id": "battle_stance",
-        "name": "Kampfhaltung",
-        "desc": "+3% Krit, +3% Rüstung",
-        "effect": { "add_stats": { "crit_add": 0.03, "armor_add": 0.03 } }
-      }
+      { "id": "battle_stance", "name": "Kampfhaltung", "desc": "+3% Krit, +3% Rüstung",
+        "effect": { "add_stats": { "crit_add": 0.03, "armor_add": 0.03 } } }
+    ],
+    "10": [
+      { "id": "tactician", "name": "Taktiker", "desc": "+4% Krit, +4% Ausweichen",
+        "effect": { "add_stats": { "crit_add": 0.04, "dodge_add": 0.04 } } },
+      { "id": "honed_edge", "name": "Geschärfte Klinge", "desc": "+3 Angriff",
+        "effect": { "add_stats": { "attack": 3 } } }
+    ],
+    "12": [
+      { "id": "commander", "name": "Feldherr", "desc": "+20 Max-HP, +4% Rüstung",
+        "effect": { "add_stats": { "hp": 20, "armor_add": 0.04 } } },
+      { "id": "ultimate_knight", "name": "Ultimative Fähigkeit: Heldenmut",
+        "desc": "+20 ATK & +10 DEF-Buff (einmal pro Kampf).",
+        "effect": { "add_skill": "Heldenmut" } }
     ]
   }
 }

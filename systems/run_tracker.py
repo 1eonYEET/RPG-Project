@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Literal, Optional
 
-RunSortKey = Literal["kills", "gold", "level", "name", "class"]
+RunSortKey = Literal["kills", "total_gold", "level", "name", "klass"]
 
 DATA_DIR = Path("data")
 RUNS_FILE = DATA_DIR / "runs.jsonl"
@@ -13,23 +13,29 @@ RUNS_FILE = DATA_DIR / "runs.jsonl"
 
 @dataclass
 class RunRecord:
-    name: str            # Spielername
-    klass: str           # gewählte Klasse/Archetyp (z. B. "Tank")
-    gold: int            # gesammeltes Gold am Run-Ende
-    level: int           # Spielerlevel am Run-Ende
-    kills: int           # Anzahl getöteter Gegner
-    dt: str              # ISO Zeitstempel (nur Anzeigezweck)
+    name: str             # Spielername
+    klass: str            # gewählte Klasse/Archetyp
+    total_gold: int       # ✅ gesamtes verdientes Gold im Run
+    level: int            # Level am Run-Ende
+    kills: int            # Anzahl getöteter Gegner
+    dt: str               # ISO Zeitstempel (nur Anzeige)
 
     @staticmethod
     def from_dict(d: dict) -> "RunRecord":
-        # Rückwärtskompatibel laden (fehlende Felder abfedern)
+        """
+        Rückwärtskompatibel laden:
+        - alte Einträge hatten 'gold' = aktueller Bestand; wir interpretieren ihn als total_gold (best effort)
+        """
+        total = d.get("total_gold")
+        if total is None:
+            total = d.get("gold", 0)
         return RunRecord(
             name=d.get("name", "Unbekannt"),
             klass=d.get("klass", d.get("class", "Unbekannt")),
-            gold=int(d.get("gold", 0)),
+            total_gold=int(total),
             level=int(d.get("level", 1)),
             kills=int(d.get("kills", 0)),
-            dt=d.get("dt", datetime.utcnow().isoformat(timespec="seconds"))
+            dt=d.get("dt", datetime.utcnow().isoformat(timespec="seconds")),
         )
 
 
@@ -57,7 +63,6 @@ class RunTracker:
                 try:
                     runs.append(RunRecord.from_dict(json.loads(line)))
                 except Exception:
-                    # verschlucke fehlerhafte Zeilen statt alles zu brechen
                     continue
         return runs
 
@@ -68,17 +73,16 @@ class RunTracker:
         desc: bool = True,
         filter_klass: Optional[str] = None
     ) -> List[RunRecord]:
-        """Sortiert Runs nach gewünschtem Schlüssel; optional nach Klasse filtern."""
         runs = self.load_runs()
         if filter_klass:
             runs = [r for r in runs if r.klass.lower() == filter_klass.lower()]
 
         key_funcs = {
-            "kills": lambda r: (r.kills, r.gold, r.level, r.name.lower()),
-            "gold":  lambda r: (r.gold, r.kills, r.level, r.name.lower()),
-            "level": lambda r: (r.level, r.kills, r.gold, r.name.lower()),
-            "name":  lambda r: (r.name.lower(), r.kills, r.gold, r.level),
-            "klass": lambda r: (r.klass.lower(), r.kills, r.gold, r.level),
+            "kills":       lambda r: (r.kills, r.total_gold, r.level, r.name.lower()),
+            "total_gold":  lambda r: (r.total_gold, r.kills, r.level, r.name.lower()),
+            "level":       lambda r: (r.level, r.kills, r.total_gold, r.name.lower()),
+            "name":        lambda r: (r.name.lower(), r.kills, r.total_gold, r.level),
+            "klass":       lambda r: (r.klass.lower(), r.kills, r.total_gold, r.level),
         }
         key_fn = key_funcs.get(sort_by, key_funcs["kills"])
         runs.sort(key=key_fn, reverse=desc)
@@ -92,19 +96,20 @@ class RunTracker:
         filter_klass: Optional[str] = None
     ) -> None:
         rows = self.leaderboard(sort_by=sort_by, limit=limit, desc=desc, filter_klass=filter_klass)
+
         title = f"🏆 Leaderboard (Sort: {sort_by}{'↓' if desc else '↑'}"
         if filter_klass:
             title += f", Klasse: {filter_klass}"
         title += ")"
 
-        # Spaltenbreiten dynamisch
-        name_w = max(4, *(len(r.name) for r in rows), default=4)
-        klass_w = max(5, *(len(r.klass) for r in rows), default=5)
+        # Spaltenbreiten robust berechnen (keine default-Arg-Kollisionen)
+        name_w = max([4] + [len(r.name) for r in rows]) if rows else 4
+        klass_w = max([5] + [len(r.klass) for r in rows]) if rows else 5
 
         print("\n" + title)
-        print("─" * (name_w + klass_w + 28))
-        print(f"{'Platz':<5} {'Name':<{name_w}}  {'Klasse':<{klass_w}}  {'Kills':>5}  {'Gold':>5}  {'Lvl':>3}  {'Datum'}")
-        print("-" * (name_w + klass_w + 28))
+        print("─" * (name_w + klass_w + 34))
+        print(f"{'Platz':<5} {'Name':<{name_w}}  {'Klasse':<{klass_w}}  {'Kills':>5}  {'GoldΣ':>7}  {'Lvl':>3}  {'Datum'}")
+        print("-" * (name_w + klass_w + 34))
         for i, r in enumerate(rows, start=1):
-            print(f"{i:<5} {r.name:<{name_w}}  {r.klass:<{klass_w}}  {r.kills:>5}  {r.gold:>5}  {r.level:>3}  {r.dt}")
+            print(f"{i:<5} {r.name:<{name_w}}  {r.klass:<{klass_w}}  {r.kills:>5}  {r.total_gold:>7}  {r.level:>3}  {r.dt}")
         print()

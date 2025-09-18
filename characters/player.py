@@ -12,6 +12,7 @@ class PlayerCharacter(Character):
         self.mana = 10
         self.max_mana = 10
         self.gold = 0
+        self.total_gold_earned = 0
         self.heal_potions = 3   # ✅ Start mit 3 Heiltränken
 
         # Startwerte / Archetyp-Defaults (werden ggf. durch Archetypen überschrieben)
