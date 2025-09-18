@@ -50,7 +50,7 @@ Ein kleines **konsolenbasiertes RPG** in Python, das bewusst nach **SOLID-Prinzi
 ## ▶️ Starten
 
 1. **Repo klonen / Dateien bereitstellen**
-   ```sh
+```sh
    git clone <repo-url>
    cd <repo>
    ```
@@ -60,8 +60,7 @@ Ein kleines **konsolenbasiertes RPG** in Python, das bewusst nach **SOLID-Prinzi
 
 3. **Spiel starten**
   ```sh
-   git clone <repo-url>
-   cd <repo>
+   python main.py
    ```
 
 ## 🧑‍💻 Steuerung (Konsole)
