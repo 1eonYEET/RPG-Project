@@ -37,7 +37,7 @@ class BattleManager:
                 self.notifier.notify(f"🎉 Du hast {self.enemy.name} besiegt!")
                 if hasattr(self.enemy, "gold_reward"):
                     self.player.gold += self.enemy.gold_reward
-                    # ✅ NEU: Gesamt-Gold mitzählen (Shop-Ausgaben ändern diesen Wert NICHT)
+                    # Gesamt-Gold mitzählen (Shop-Ausgaben ändern diesen Wert NICHT)
                     if not hasattr(self.player, "total_gold_earned"):
                         self.player.total_gold_earned = 0
                     self.player.total_gold_earned += self.enemy.gold_reward

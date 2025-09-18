@@ -88,3 +88,97 @@ Nach jedem Run wird ein Datensatz gespeichert:
 - 🎯 Level  
 - ☠️ Kills  
 - 📅 Datum
+
+## 🌳 Skilltree – Übersicht
+
+### 🧾 Generisch (für alle Klassen verfügbar)
+- **Level 2**
+  - ⚔️ *Klingenhieb I* – +2 ATK  
+  - 🛡️ *Zähigkeit I* – +10 HP, +3% Armor  
+  - 🧪 *Alchemist I* – Heiltränke +20% wirksamer  
+- **Level 6**
+  - ⚔️ *Klingenhieb II* – +3 ATK *(requires Klingenhieb I)*  
+  - 🛡️ *Zähigkeit II* – +10 HP, +2 DEF *(requires Zähigkeit I)*  
+  - 📖 *Taktiker* – +5 Mana, +10% Spellpower *(requires Alchemist I)*  
+- **Level 10**
+  - ⚔️ *Klingenhieb III* – +4 ATK *(requires Klingenhieb II)*  
+  - 🛡️ *Zähigkeit III* – +15 HP, +1 DEF *(requires Zähigkeit II)*  
+  - 🧪 *Alchemist II* – Heiltränke +20% wirksamer *(requires Taktiker)*  
+- **Level 12**
+  - 🎯 *Präzision* – +4% Crit  
+  - 💨 *Ausweichrolle* – +4% Dodge  
+  - 🛡️ *Schutzkunde* – +3% Armor  
+- **Level 15**
+  - ⚔️ *Waffenkunde* – +3 ATK, +3% Crit  
+  - 🛡️ *Kampferprobt* – +20 HP, +1 DEF  
+  - 🔮 *Mystischer Fokus* – +6 Mana, +12% Spellpower  
+
+---
+
+### 🛡️ Tank
+- **Level 4**
+  - *Steinhaut* – +10% Armor  
+  - *Vitalität* – +20 HP  
+- **Level 6**
+  - *Eiserner Wille* – +1 DEF, +5% Armor  
+  - *Unbeugsam* – +15 HP, +5% Healpower  
+- **Level 8**
+  - *Wächter* – +2 DEF, +10% Healpower  
+- **Level 10**
+  - *Bollwerk* – +30 HP, +2 DEF  
+  - *Gehärtete Platte* – +6% Armor  
+- **Level 12**
+  - *Unerschütterlich* – +7% Armor, +10 HP  
+  - 🌟 *Ultimate: Unzerstörbar* – Heilt 40% HP, setzt Armor auf 80% (1× pro Kampf)  
+
+---
+
+### 🗡️ Assassin
+- **Level 4**
+  - *Kritische Präzision* – +7% Crit  
+  - *Schattenbewegung* – +7% Dodge  
+- **Level 6**
+  - *Tödlicher Fokus* – +8% Crit *(requires Kritische Präzision)*  
+  - *Leichtfüßig* – +8% Dodge *(requires Schattenbewegung)*  
+- **Level 8**
+  - *Durchdringender Schlag* – Fähigkeit: Ignoriert 25% DEF  
+- **Level 10**
+  - *Hinterhalt* – +4 ATK, +5% Crit  
+  - *Schattentanz* – +6% Dodge, +2% Armor  
+- **Level 12**
+  - *Assassinenlist* – +3 ATK, +4% Crit, +3% Dodge  
+  - 🌟 *Ultimate: Tödlicher Schlag* – Garantierter Crit +50% Bonusdmg (1× pro Kampf)  
+
+---
+
+### 🔮 Mage
+- **Level 4**
+  - *Arkaner Fokus* – +30% Spellpower, +5 Mana  
+- **Level 6**
+  - *Essenzanzapfung* – +8 Mana, +15% Spellpower  
+  - *Schutzrunen* – +3% Armor, +5 HP  
+- **Level 8**
+  - *Manaschild* – +5% Armor, +10 HP  
+- **Level 10**
+  - *Gestärkte Zauber* – +25% Spellpower  
+  - *Arkaner Fluss* – +6 Mana, +4% Crit  
+- **Level 12**
+  - *Arkane Meisterschaft* – +10 Mana, +20% Spellpower  
+  - 🌟 *Ultimate: Arkaner Sturm* – Massiver Magieschaden, ignoriert DEF/Armor (1× pro Kampf)  
+
+---
+
+### ⚔️ Knight
+- **Level 4**
+  - *Ausgewogenheit I* – +1 ATK, +1 DEF, +10 HP  
+- **Level 6**
+  - *Vielseitigkeit* – +2 ATK, +2 DEF  
+  - *Schildausbildung* – +3% Armor, +5 HP  
+- **Level 8**
+  - *Kampfhaltung* – +3% Crit, +3% Armor  
+- **Level 10**
+  - *Taktiker* – +4% Crit, +4% Dodge  
+  - *Geschärfte Klinge* – +3 ATK  
+- **Level 12**
+  - *Feldherr* – +20 HP, +4% Armor  
+  - 🌟 *Ultimate: Heldenmut* – +20 ATK, +10 DEF Buff bis Kampelende (1× pro Kampf)  

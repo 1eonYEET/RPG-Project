@@ -68,7 +68,7 @@ class GameLoop:
             self._post_fight_recovery(boss=was_boss)
 
             if self.wave_manager.wave_number % 5 == 0:
-                # ⬇️ Tier an Shop geben (für Preisfaktor)
+                # Tier an Shop geben (für Preisfaktor)
                 self.shop.open(self.player, self.notifier, tier=self.wave_manager.tier)
 
         self.notifier.notify(f"\n💀 Endstand: Du hast {self.wave_manager.wave_number} Wellen überlebt.")
@@ -77,7 +77,7 @@ class GameLoop:
         rec = RunRecord(
             name=getattr(self.player, "name", "Spieler"),
             klass=getattr(self.player, "archetype", "Unbekannt"),
-            total_gold=int(getattr(self.player, "total_gold_earned", 0)),  # ✅ Summe!
+            total_gold=int(getattr(self.player, "total_gold_earned", 0)),  # Summe!
             level=int(getattr(self.player, "level", 1)),
             kills=int(getattr(self.player, "kills", 0)),
             dt=datetime.utcnow().isoformat(timespec="seconds")

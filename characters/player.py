@@ -13,7 +13,7 @@ class PlayerCharacter(Character):
         self.max_mana = 10
         self.gold = 0
         self.total_gold_earned = 0
-        self.heal_potions = 3   # ✅ Start mit 3 Heiltränken
+        self.heal_potions = 3   # Start mit 3 Heiltränken
 
         # Startwerte / Archetyp-Defaults (werden ggf. durch Archetypen überschrieben)
         self.archetype = "Adventurer"
@@ -84,13 +84,13 @@ class PlayerCharacter(Character):
         else:
             notifier.notify("❌ Ungültige Eingabe. Kein Bonus erhalten.")'''
 
-    # -------- Zug: Inventar ansehen verbraucht keinen Zug; Heilen → Heiltrank --------
+    # -------- Zug: Inventar ansehen verbraucht keinen Zug --------
     def take_turn(self, opponent, logger):
         while True:
             print(f"\n🧙 Deine Runde! ({self.hp} HP, {self.mana} Mana)")
             print("0. Inventar ansehen (verbraucht keinen Zug)")
             print(f"1. Angreifen")
-            print(f"2. Heiltrank benutzen (x{self.heal_potions})")  # ✅ ersetzt „Heilen“
+            print(f"2. Heiltrank benutzen (x{self.heal_potions})")
             print("3. Fähigkeit einsetzen")
             choice = input("Wähle eine Aktion: ").strip()
 
@@ -106,7 +106,7 @@ class PlayerCharacter(Character):
             elif choice == "2":
                 if self.heal_potions <= 0:
                     logger.log("🧪 Kein Heiltrank mehr übrig!")
-                    # trotzdem darfst du noch was anderes wählen
+                    # trotzdem darf man noch was anderes wählen
                     continue
                 heal_base = 20
                 heal_amount = int(heal_base * self.heal_power)  # Tank profitiert z. B. stärker
@@ -152,7 +152,6 @@ class PlayerCharacter(Character):
             logger.log("❌ Ungültige Auswahl.")
 
     def _update_xp_thresholds(self):
-        # Beispiel: die Balancing-Variante aus deinem letzten Stand
         if self.level <= 3:
             self.xp_to_next = 3 + (self.level - 1)
             if self.level == 3:
