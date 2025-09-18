@@ -1,0 +1,131 @@
+{
+  "generic": {
+    "2": [
+      {
+        "id": "offense_1",
+        "name": "Klingenhieb I",
+        "desc": "+2 Angriff",
+        "effect": { "add_stats": { "attack": 2 } }
+      },
+      {
+        "id": "defense_1",
+        "name": "Zähigkeit I",
+        "desc": "+10 Max-HP, +3% Rüstung",
+        "effect": { "add_stats": { "hp": 10, "armor_add": 0.03 } }
+      },
+      {
+        "id": "utility_1",
+        "name": "Alchemist I",
+        "desc": "Heiltränke +20% wirksamer",
+        "effect": { "add_stats": { "heal_power": 0.2 } }
+      }
+    ],
+    "6": [
+      {
+        "id": "offense_2",
+        "name": "Klingenhieb II",
+        "desc": "+3 Angriff",
+        "requires": ["offense_1"],
+        "effect": { "add_stats": { "attack": 3 } }
+      },
+      {
+        "id": "defense_2",
+        "name": "Zähigkeit II",
+        "desc": "+10 Max-HP, +2 DEF",
+        "requires": ["defense_1"],
+        "effect": { "add_stats": { "hp": 10, "defense": 2 } }
+      },
+      {
+        "id": "utility_2",
+        "name": "Taktiker",
+        "desc": "+5 Max-Mana, +10% Zauberkraft",
+        "requires": ["utility_1"],
+        "effect": { "add_stats": { "mana": 5, "spell_power": 0.1 } }
+      }
+    ]
+  },
+  "Tank": {
+    "4": [
+      {
+        "id": "stone_skin",
+        "name": "Steinhaut",
+        "desc": "+10% Rüstung",
+        "effect": { "add_stats": { "armor_add": 0.10 } }
+      },
+      {
+        "id": "vitality",
+        "name": "Vitalität",
+        "desc": "+20 Max-HP",
+        "effect": { "add_stats": { "hp": 20 } }
+      }
+    ],
+    "8": [
+      {
+        "id": "guardian",
+        "name": "Wächter",
+        "desc": "+2 DEF, +10% Heilbonus",
+        "effect": { "add_stats": { "defense": 2, "heal_power": 0.1 } }
+      }
+    ]
+  },
+  "Assassin": {
+    "4": [
+      {
+        "id": "crit_1",
+        "name": "Kritische Präzision",
+        "desc": "+7% Krit-Chance",
+        "effect": { "add_stats": { "crit_add": 0.07 } }
+      },
+      {
+        "id": "dodge_1",
+        "name": "Schattenbewegung",
+        "desc": "+7% Ausweichen",
+        "effect": { "add_stats": { "dodge_add": 0.07 } }
+      }
+    ],
+    "8": [
+      {
+        "id": "piercing_strike_unlock",
+        "name": "Durchdringender Schlag",
+        "desc": "Neue Fähigkeit: Durchdringender Schlag",
+        "effect": { "add_skill": "PiercingStrike" }
+      }
+    ]
+  },
+  "Mage": {
+    "4": [
+      {
+        "id": "arcane_focus",
+        "name": "Arkaner Fokus",
+        "desc": "+30% Zauberkraft, +5 Mana",
+        "effect": { "add_stats": { "spell_power": 0.3, "mana": 5 } }
+      }
+    ],
+    "8": [
+      {
+        "id": "mana_shield",
+        "name": "Manaschild",
+        "desc": "+5% Rüstung, +10 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } }
+      }
+    ]
+  },
+  "Knight": {
+    "4": [
+      {
+        "id": "balanced_1",
+        "name": "Ausgewogenheit I",
+        "desc": "+1 ATK, +1 DEF, +10 Max-HP",
+        "effect": { "add_stats": { "attack": 1, "defense": 1, "hp": 10 } }
+      }
+    ],
+    "8": [
+      {
+        "id": "battle_stance",
+        "name": "Kampfhaltung",
+        "desc": "+3% Krit, +3% Rüstung",
+        "effect": { "add_stats": { "crit_add": 0.03, "armor_add": 0.03 } }
+      }
+    ]
+  }
+}

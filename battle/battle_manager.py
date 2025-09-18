@@ -1,0 +1,55 @@
+# battle/battle_manager.py
+from display.status_display import StatusDisplay
+from messaging.battle_logger import BattleLogger
+
+class BattleManager:
+    def __init__(self, player, enemy, notifier):
+        self.player = player
+        self.enemy = enemy
+        self.notifier = notifier
+        self.status_display = StatusDisplay(notifier)
+        self.logger = BattleLogger(notifier)
+        self._round_number = 0
+
+    def start(self):
+        self.notifier.notify(f"⚔️ Der Kampf gegen {self.enemy.name} beginnt!")
+        if getattr(self.enemy, "is_boss", False) and getattr(self.enemy, "portrait", None):
+            self.notifier.notify(f"\n{self.enemy.portrait}")
+
+        while self.player.is_alive() and self.enemy.is_alive():
+            self._round_number += 1
+
+            # Rundenkopf & Statusanzeige (nur vor Spielerzug)
+            self.notifier.notify(f"\n🌀 Runde {self._round_number}")
+            self.status_display.show(self.player, self.enemy)
+
+            # Spielerzug
+            self.player.take_turn(self.enemy, self.logger)
+            self.logger.flush()
+
+            if not self.enemy.is_alive():
+                if not hasattr(self.player, "kills"):
+                    self.player.kills = 0
+                self.player.kills += 1
+
+                self.notifier.notify(f"🎉 Du hast {self.enemy.name} besiegt!")
+                if hasattr(self.enemy, "gold_reward"):
+                    self.player.gold += self.enemy.gold_reward
+                    self.notifier.notify(f"💰 Beute: +{self.enemy.gold_reward}g (Gesamt: {self.player.gold}g)")
+                if hasattr(self.enemy, "xp_reward"):
+                    self.player.gain_xp(self.enemy.xp_reward, self.notifier)
+
+                if getattr(self.enemy, "drop_table", None):
+                    for ctor in self.enemy.drop_table:
+                        item = ctor()
+                        self.player.inventory.add_item(item)
+                        self.notifier.notify(f"🎁 Drop erhalten: {item.name()} — {item.description()}")
+                break
+
+            # Gegnerzug
+            self.enemy.take_turn(self.player, self.logger)
+            self.logger.flush()
+
+            if not self.player.is_alive():
+                self.notifier.notify("☠️ Du wurdest besiegt...")
+                break
