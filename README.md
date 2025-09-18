@@ -1,7 +1,6 @@
 # ⚔️ Console RPG – Turn-Based Adventure in Python
 
-Ein kleines **konsolenbasiertes RPG** in Python, das bewusst nach **SOLID-Prinzipien** entworfen ist.  
-Perfekt als Lernprojekt, um OOP, Entwurfsmuster und Software-Architektur zu üben – und nebenbei ein spielbares Game zu haben.  
+Ein kleines **konsolenbasiertes RPG** in Python, das bewusst nach **SOLID-Prinzipien** entworfen ist.
 
 ---
 
