@@ -22,4 +22,4 @@ class HealerCompanion(Companion):
             heal = self.ability_data["heal_amount"]
             player.hp = min(player.max_hp, player.hp + heal)
             if logger:
-                logger.log(f"{self.name} heilt {player.name} um {heal} HP!")
+                logger.log(f"💚 {self.name} heilt {player.name} um {heal} HP!")

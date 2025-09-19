@@ -14,15 +14,17 @@ class BattleManager:
 
     def start(self):
         self.notifier.notify(f"⚔️ Der Kampf gegen {self.enemy.name} beginnt!")
+
+        # Companion-Fähigkeit zu Beginn des Kampfes
+        if self.player.companion and self.player.kills > 0:
+            self.player.companion.reset_combat_flags()
+            self.player.companion.use_ability(CompanionTrigger.PRE_FIGHT, self.player, self.enemy, self.logger)
+            self.logger.flush()
+
         if getattr(self.enemy, "is_boss", False) and getattr(self.enemy, "portrait", None):
             self.notifier.notify(f"\n{self.enemy.portrait}")
 
         self.player._combat_id = getattr(self.player, "_combat_id", 0) + 1
-
-        # Companion-Fähigkeit zu Beginn des Kampfes
-        if self.player.companion:
-            self.player.companion.reset_combat_flags()
-            self.player.companion.use_ability(CompanionTrigger.PRE_FIGHT, self.player, self.enemy, self.logger)
 
         while self.player.is_alive() and self.enemy.is_alive():
             self._round_number += 1
@@ -34,6 +36,7 @@ class BattleManager:
             # Companion-Fähigkeit zu Beginn jeder Runde
             if self.player.companion:
                 self.player.companion.use_ability(CompanionTrigger.TURN_START, self.player, self.enemy, self.logger)
+                self.logger.flush()
 
             # Spielerzug
             self.player.take_turn(self.enemy, self.logger)
@@ -43,6 +46,7 @@ class BattleManager:
             # Optional für Effekte am Rundenende
             if self.player.companion:
                 self.player.companion.use_ability(CompanionTrigger.TURN_END, self.player, self.enemy, self.logger)
+                self.logger.flush()
 
             if not self.enemy.is_alive():
                 if not hasattr(self.player, "kills"):
@@ -69,6 +73,7 @@ class BattleManager:
                 # Nach Kampf
                 if self.player.companion:
                     self.player.companion.use_ability(CompanionTrigger.POST_FIGHT, self.player, self.enemy, self.logger)
+                    self.logger.flush()
 
                 break
 
