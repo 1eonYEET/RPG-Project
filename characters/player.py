@@ -22,6 +22,7 @@ class PlayerCharacter(Character):
         self.dodge_chance = 0.05
         self.heal_power = 1.0
         self.spell_power = 1.0
+        self.life_steal = 0
 
         # Progression
         self.level = 1
@@ -100,7 +101,8 @@ class PlayerCharacter(Character):
 
             if choice == "1":
                 base = max(0, self.attack - opponent.defense)
-                self.attempt_attack(opponent, base_damage=base, logger=logger, label="Angriff")
+                if self.attempt_attack(opponent, base_damage=base, logger=logger, label="Angriff"):
+                    self.apply_life_steal(damage=base, logger=logger)
                 break
 
             elif choice == "2":
@@ -162,3 +164,13 @@ class PlayerCharacter(Character):
             self.xp_to_next = 10
         else:
             self.xp_to_next += 2
+
+    def apply_life_steal(self, damage, logger):
+        before = self.hp
+        heal_amount = int(damage * self.life_steal)
+        self.hp = min(self.max_hp, self.hp + heal_amount)
+        actual = self.hp - before
+        logger.log(f"🩸 Du heilst dich mit Lifesteal um (+{actual} HP).")
+
+    def add_max_health(self, amount):
+        self.hp += amount

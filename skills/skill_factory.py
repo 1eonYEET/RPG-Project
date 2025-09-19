@@ -9,6 +9,7 @@ from skills.ultimate_unzerstoerbar import Unzerstoerbar
 from skills.ultimate_toedlicher_schlag import ToedlicherSchlag
 from skills.ultimate_arkaner_sturm import ArkanerSturm
 from skills.ultimate_heldenmut import Heldenmut
+from skills.ultimate_vampire_grandmaster import VampireGrandmaster
 
 
 class SkillFactory:
@@ -20,6 +21,7 @@ class SkillFactory:
         "ToedlicherSchlag": ToedlicherSchlag,
         "ArkanerSturm": ArkanerSturm,
         "Heldenmut": Heldenmut,
+        "VampireGrandmaster": VampireGrandmaster
     }
 
     @classmethod

@@ -38,6 +38,7 @@ class StatusDisplay:
         p_arm   = int(round(100 * float(getattr(player, "armor", 0.0))))
         p_crit  = int(round(100 * float(getattr(player, "crit_chance", 0.0))))
         p_dodge = int(round(100 * float(getattr(player, "dodge_chance", 0.0))))
+        p_life_steal = int(round(100 * float(getattr(player, "life_steal", 0.0))))
 
         e_arm   = int(round(100 * float(getattr(enemy, "armor", 0.0))))
         e_crit  = int(round(100 * float(getattr(enemy, "crit_chance", 0.0))))
@@ -56,6 +57,7 @@ class StatusDisplay:
    XP:    {getattr(player, 'xp', 0)}/{getattr(player, 'xp_to_next', 1)} {player_xp_bar}
    ATK:   {getattr(player, 'attack', 0)}   DEF: {getattr(player, 'defense', 0)}
    ARM:   {p_arm}%   CRIT: {p_crit}%   DODGE: {p_dodge}%
+   LIFE STEAL {p_life_steal}%
    GOLD:  {getattr(player, 'gold', 0)}g
    ITEMS: {inv_text}
 ────────────────────────────

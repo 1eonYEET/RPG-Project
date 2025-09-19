@@ -108,7 +108,7 @@ class RunTracker:
 
         print("\n" + title)
         print("─" * (name_w + klass_w + 34))
-        print(f"{'Platz':<5} {'Name':<{name_w}}  {'Klasse':<{klass_w}}  {'Kills':>5}  {'GoldΣ':>7}  {'Lvl':>3}  {'Datum'}")
+        print(f"{'Platz':<5} {'Name':<{name_w}}  {'Klasse':<{klass_w}}  {'Kills':>5}  {'TotalGold':>7}  {'Lvl':>3}  {'Datum'}")
         print("-" * (name_w + klass_w + 34))
         for i, r in enumerate(rows, start=1):
             print(f"{i:<5} {r.name:<{name_w}}  {r.klass:<{klass_w}}  {r.kills:>5}  {r.total_gold:>7}  {r.level:>3}  {r.dt}")

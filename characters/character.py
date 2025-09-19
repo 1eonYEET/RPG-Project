@@ -29,7 +29,7 @@ class Character(ABC):
         reduced = int(round(amount * (1 - reduction)))
         return max(1, reduced)
 
-    def attempt_attack(self, target: "Character", base_damage: int, logger, label: str = "Angriff"):
+    def attempt_attack(self, target: "Character", base_damage: int, logger, label: str = "Angriff") -> bool:
         """
         Angriff mit Dodge, Crit und Armor-Reduktion:
         1. Ziel weicht aus → 0 Schaden
@@ -39,7 +39,7 @@ class Character(ABC):
         # Ausweichen
         if random.random() < min(max(target.dodge_chance, 0.0), 0.6):
             logger.log(f"🌀 {target.name} weicht {label} aus! Kein Schaden.")
-            return
+            return False
 
         # Kritischer Treffer
         crit = random.random() < min(max(self.crit_chance, 0.0), 1.0)
@@ -52,6 +52,7 @@ class Character(ABC):
         logger.log(f"⚔️ {self.name} trifft {target.name} für {effective_for_log} Schaden.")
 
         target.receive_damage(raw_damage)
+        return True
 
     @abstractmethod
     def take_turn(self, opponent: "Character", logger):

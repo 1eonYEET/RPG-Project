@@ -124,11 +124,11 @@
         "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } } }
     ],
     "10": [
-      { "id": "empowered_casting", "name": "Gestärkte Zauber", "desc": "+25% Zauberkraft",
-        "effect": { "add_stats": { "spell_power": 0.25 } } },
-      { "id": "arcane_flow", "name": "Arkaner Fluss", "desc": "+6 Max-Mana, +4% Krit",
-        "effect": { "add_stats": { "mana": 6, "crit_add": 0.04 } } }
-    ],
+      { "id": "ambush", "name": "Hinterhalt", "desc": "+4 Angriff, +5% Krit",
+        "effect": { "add_stats": { "attack": 4, "crit_add": 0.05 } } },
+      { "id": "shadowdance", "name": "Schattentanz", "desc": "+6% Ausweichen, +2% Rüstung",
+        "effect": { "add_stats": { "dodge_add": 0.06, "armor_add": 0.02 } } }
+      ],
     "12": [
       { "id": "arcane_mastery", "name": "Arkane Meisterschaft",
         "desc": "+10 Max-Mana, +20% Zauberkraft",
@@ -136,6 +136,37 @@
       { "id": "ultimate_mage", "name": "Ultimative Fähigkeit: Arkaner Sturm",
         "desc": "Massiver magischer Schaden (einmal pro Kampf).",
         "effect": { "add_skill": "ArkanerSturm" } }
+    ]
+  },
+
+  "Vampire": {
+    "4": [
+      { "id": "blood_ritual", "name": "Blutritual", "desc": "5% Lifesteal",
+        "effect": { "add_stats": { "life_steal": 0.05 } } }
+    ],
+    "6": [
+      { "id": "shadow_cloak", "name": "Schattenmantel", "desc": "+7% Ausweichen",
+        "effect": { "add_stats": { "dodge_add": 0.07 } } },
+      { "id": "warding_runes", "name": "Schutzrunen", "desc": "+3% Rüstung, +5 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.03, "hp": 5 } } }
+    ],
+    "8": [
+      { "id": "blood_shield", "name": "Blutschild", "desc": "+5% Rüstung, +10 Max-HP",
+        "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } } }
+    ],
+    "10": [
+      { "id": "soul_stealer", "name": "Seelenraub", "desc": "+10% Heilbonus",
+        "effect": { "add_stats": { "heal_power": 0.1 } } },
+      { "id": "ambush", "name": "Hinterhalt", "desc": "+4 Angriff, +5% Krit",
+        "effect": { "add_stats": { "attack": 4, "crit_add": 0.05 } } }
+    ],
+    "12": [
+      { "id": "blood_mastery", "name": "Blut-Meisterschaft",
+        "desc": "+10% Crit, +10% Lifesteal",
+        "effect": { "add_stats": { "crit_add": 10, "life_steal": 0.20 } } },
+      { "id": "ultimate_vampire", "name": "Ultimative Fähigkeit: Vampir-Großmeister",
+        "desc": "Erhöhe PERMANENT Max HP (einmal pro Kampf).",
+        "effect": { "add_skill": "VampireGrandmaster" } }
     ]
   },
 

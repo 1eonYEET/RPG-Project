@@ -13,6 +13,7 @@ class AddStatsEffect:
     dodge_add: float = 0.0
     spell_power: float = 0.0
     heal_power: float = 0.0
+    life_steal: float = 0.0
 
 @dataclass
 class AddSkillEffect:

@@ -1,7 +1,7 @@
 from battle.battle_manager import BattleManager
 from messaging.console_notifier import ConsoleNotifier
 from game.wave_manager import WaveManager
-from characters.archetypes import Tank, Assassin, Mage, Knight
+from characters.archetypes import Tank, Assassin, Mage, Knight, Vampire
 from systems.shop import Shop
 from systems.run_tracker import RunTracker, RunRecord
 from datetime import datetime
@@ -17,10 +17,11 @@ class GameLoop:
     def _choose_class(self):
         while True:
             print("Wähle deine Klasse:")
-            print("1. 🛡️ Tank   – mehr HP & Rüstung, schwächerer Dodge/DMG, besseres Heilen")
+            print("1. 🛡️ Tank     – mehr HP & Rüstung, schwächerer Dodge/DMG, besseres Heilen")
             print("2. 🗡️ Assassin – höherer DMG, Dodge & Crit, weniger HP")
-            print("3. 🔮 Mage    – mehr Mana, effektivere Zauber")
-            print("4. ⚔️ Knight  – ausgewogener Mix")
+            print("3. 🔮 Mage      – mehr Mana, effektivere Zauber")
+            print("4. 🧛 Vampire   – Lebensraub durch Angriffe")
+            print("5. ⚔️ Knight    – ausgewogener Mix")
             print("L. 🏆 Leaderboard ansehen")
 
             choice = input("Deine Wahl: ").strip().lower()
@@ -39,6 +40,8 @@ class GameLoop:
                 return Assassin(name)
             elif choice == "3":
                 return Mage(name)
+            elif choice == "4":
+                return Vampire(name)
             else:
                 return Knight(name)  # Default
 

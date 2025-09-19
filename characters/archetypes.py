@@ -12,6 +12,7 @@ class Tank(PlayerCharacter):
         self.dodge_chance = 0.02     # schlechteres Ausweichen
         self.heal_power = 1.5        # besseres Heilen
         self.spell_power = 0.9       # Spells etwas schwächer
+        self.life_steal = 0
 
 class Assassin(PlayerCharacter):
     def __init__(self, name: str):
@@ -25,6 +26,7 @@ class Assassin(PlayerCharacter):
         self.dodge_chance = 0.15     # hohes Ausweichen
         self.heal_power = 0.8        # schwächeres Heilen
         self.spell_power = 1.0
+        self.life_steal = 0
 
 class Mage(PlayerCharacter):
     def __init__(self, name: str):
@@ -38,6 +40,7 @@ class Mage(PlayerCharacter):
         self.dodge_chance = 0.05
         self.heal_power = 1.0
         self.spell_power = 1.5       # Spells stärker
+        self.life_steal = 0
 
 class Knight(PlayerCharacter):
     def __init__(self, name: str):
@@ -51,3 +54,17 @@ class Knight(PlayerCharacter):
         self.dodge_chance = 0.07
         self.heal_power = 1.0
         self.spell_power = 1.0
+        self.life_steal = 0
+
+class Vampire(PlayerCharacter):
+    def __init__(self, name:str):
+        super().__init__(name=name, hp=50, attack=12, defense=2)
+        self.archetype= "Vampire"
+        self.mana = 15
+        self.max_mana = 15
+        self.armor = 0.10
+        self.crit_chance = 0.10
+        self.dodge_chance = 0.10
+        self.heal_power = 1.5
+        self.spell_power = 1.5
+        self.life_steal = 0.15
