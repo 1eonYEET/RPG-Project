@@ -1,4 +1,5 @@
 from battle.battle_manager import BattleManager
+from companions.definitions import COMPANION_CHOICES
 from messaging.console_notifier import ConsoleNotifier
 from game.wave_manager import WaveManager
 from characters.archetypes import Tank, Assassin, Mage, Knight, Vampire
@@ -10,9 +11,11 @@ class GameLoop:
     def __init__(self):
         self.notifier = ConsoleNotifier()
         self.player = self._choose_class()
+        self._choose_companion()
         self.player.kills = 0
         self.wave_manager = WaveManager()
         self.shop = Shop()
+
 
     def _choose_class(self):
         while True:
@@ -44,6 +47,22 @@ class GameLoop:
                 return Vampire(name)
             else:
                 return Knight(name)  # Default
+
+    def _choose_companion(self):
+        print("\nWähle deinen Begleiter:")
+        for idx, comp in enumerate(COMPANION_CHOICES, start=1):
+            print(f"{idx}. {comp.name} – {comp.description}")
+
+        comp_choice = input("Deine Wahl (Zahl): ").strip()
+        try:
+            comp_choice_idx = int(comp_choice) - 1
+            chosen_companion = COMPANION_CHOICES[comp_choice_idx]
+        except (ValueError, IndexError):
+            print("Ungültige Wahl, Standard-Begleiter wird zugewiesen.")
+            chosen_companion = COMPANION_CHOICES[0]
+
+        self.player.summon_companion(chosen_companion)
+        print(f"\n{self.player.name} wird begleitet von {chosen_companion.name}!")
 
     def start(self):
         self.notifier.notify("🏟️ ARENA-MODUS: Endlose Kampfwellen!")

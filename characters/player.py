@@ -39,6 +39,8 @@ class PlayerCharacter(Character):
         self.unlocked_nodes = []
         self._skill_engine = SkillTreeEngine()
 
+        self.companion = None
+
     def load_skills(self):
         return [Fireball(), Heal()]
 
@@ -174,3 +176,6 @@ class PlayerCharacter(Character):
 
     def add_max_health(self, amount):
         self.max_hp += amount
+
+    def summon_companion(self, companion):
+        self.companion = companion

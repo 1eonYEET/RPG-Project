@@ -1,4 +1,5 @@
 # battle/battle_manager.py
+from companions.triggers import CompanionTrigger
 from display.status_display import StatusDisplay
 from messaging.battle_logger import BattleLogger
 
@@ -18,6 +19,11 @@ class BattleManager:
 
         self.player._combat_id = getattr(self.player, "_combat_id", 0) + 1
 
+        # Companion-Fähigkeit zu Beginn des Kampfes
+        if self.player.companion:
+            self.player.companion.reset_combat_flags()
+            self.player.companion.use_ability(CompanionTrigger.PRE_FIGHT, self.player, self.enemy, self.logger)
+
         while self.player.is_alive() and self.enemy.is_alive():
             self._round_number += 1
 
@@ -25,9 +31,18 @@ class BattleManager:
             self.notifier.notify(f"\n🌀 Runde {self._round_number}")
             self.status_display.show(self.player, self.enemy)
 
+            # Companion-Fähigkeit zu Beginn jeder Runde
+            if self.player.companion:
+                self.player.companion.use_ability(CompanionTrigger.TURN_START, self.player, self.enemy, self.logger)
+
             # Spielerzug
             self.player.take_turn(self.enemy, self.logger)
             self.logger.flush()
+
+
+            # Optional für Effekte am Rundenende
+            if self.player.companion:
+                self.player.companion.use_ability(CompanionTrigger.TURN_END, self.player, self.enemy, self.logger)
 
             if not self.enemy.is_alive():
                 if not hasattr(self.player, "kills"):
@@ -50,6 +65,11 @@ class BattleManager:
                         item = ctor()
                         self.player.inventory.add_item(item)
                         self.notifier.notify(f"🎁 Drop erhalten: {item.name()} — {item.description()}")
+
+                # Nach Kampf
+                if self.player.companion:
+                    self.player.companion.use_ability(CompanionTrigger.POST_FIGHT, self.player, self.enemy, self.logger)
+
                 break
 
             # Gegnerzug
