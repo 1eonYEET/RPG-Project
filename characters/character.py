@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import random
 
+from companions.triggers import CompanionTrigger
+
 
 class Character(ABC):
     def __init__(self, name: str, hp: int, attack: int, defense: int):
@@ -18,9 +20,17 @@ class Character(ABC):
     def is_alive(self) -> bool:
         return self.hp > 0
 
-    def receive_damage(self, amount: int):
+    def receive_damage(self, amount: int, attacker=None, logger=None):
         """Schaden nach Armor-Reduktion anwenden."""
         effective = self._apply_armor(amount)
+        companion = getattr(self, "companion", None)
+        if companion:
+            # Companion kann Schaden verhindern
+            #TODO FIX OPFERGEIST TRIGGER
+            prevent_damage = companion.use_ability(CompanionTrigger.ON_DAMAGE, self, attacker, logger)
+            if prevent_damage:
+                # Schaden wird komplett verhindert!
+                return
         self.hp = max(0, self.hp - effective)
 
     def _apply_armor(self, amount: int) -> int:
@@ -51,7 +61,7 @@ class Character(ABC):
         effective_for_log = target._apply_armor(raw_damage)
         logger.log(f"⚔️ {self.name} trifft {target.name} für {effective_for_log} Schaden.")
 
-        target.receive_damage(raw_damage)
+        target.receive_damage(raw_damage, logger)
         return True
 
     @abstractmethod

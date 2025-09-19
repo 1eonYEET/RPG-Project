@@ -172,7 +172,8 @@ class PlayerCharacter(Character):
         heal_amount = int(damage * self.life_steal)
         self.hp = min(self.max_hp, self.hp + heal_amount)
         actual = self.hp - before
-        logger.log(f"🩸 Du heilst dich mit Lifesteal um (+{actual} HP).")
+        if actual > 0:
+            logger.log(f"🩸 Du heilst dich mit Lifesteal um (+{actual} HP).")
 
     def add_max_health(self, amount):
         self.max_hp += amount

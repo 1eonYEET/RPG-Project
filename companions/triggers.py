@@ -5,3 +5,4 @@ class CompanionTrigger(Enum):
     TURN_START = auto()
     TURN_END = auto()
     POST_FIGHT = auto()
+    ON_DAMAGE = auto()
