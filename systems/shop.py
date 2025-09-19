@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import Callable, List, Union
 
+from items.mana_crystal import ManaCrystal
 from systems.inventory import Inventory
 from items.sword_iron import IronSword
 from items.armor_leather import LeatherArmor
@@ -47,6 +48,7 @@ class Shop:
             ItemOffer("Lederharnisch",  "+1 DEF, +5% Rüstung, +2% Dodge", 75, LeatherArmor),
             ItemOffer("Glücksanhänger", "+5% Krit, +3% Dodge",            90, LuckyCharm),
             PotionOffer("Heiltrank",    "Heilt 20 HP (skaliert mit Heilbonus)", 35),
+            ItemOffer("Mana-Kristall",   "+5 Max Mana, +10% Zauberkraft.", 80, ManaCrystal)
         ]
         self._applier = EffectApplier()
 

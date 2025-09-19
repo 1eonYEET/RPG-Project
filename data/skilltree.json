@@ -155,8 +155,9 @@
         "effect": { "add_stats": { "armor_add": 0.05, "hp": 10 } } }
     ],
     "10": [
-      { "id": "soul_stealer", "name": "Seelenraub", "desc": "+10% Heilbonus",
-        "effect": { "add_stats": { "heal_power": 0.1 } } },
+      { "id": "soul_stealer", "name": "Seelenraub", "desc": "+10% Heilbonus, +7% Ausweichen",
+        "effect": { "add_stats": { "heal_power": 0.1, "dodge_add": 0.07
+        } } },
       { "id": "ambush", "name": "Hinterhalt", "desc": "+4 Angriff, +5% Krit",
         "effect": { "add_stats": { "attack": 4, "crit_add": 0.05 } } }
     ],

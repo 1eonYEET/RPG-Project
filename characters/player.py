@@ -173,4 +173,4 @@ class PlayerCharacter(Character):
         logger.log(f"🩸 Du heilst dich mit Lifesteal um (+{actual} HP).")
 
     def add_max_health(self, amount):
-        self.hp += amount
+        self.max_hp += amount

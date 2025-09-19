@@ -20,7 +20,8 @@ class Enemy(Character):
 
     def take_turn(self, opponent, logger):
         logger.log(f"\n👹 {self.name}'s Runde! ({self.hp} HP)")
-        action = random.choice(["attack", "idle"])
+        attack_pattern = ["attack"] #add "idle" to reduce difficulty
+        action = random.choice(attack_pattern)
         if action == "attack":
             base = max(0, self.attack - opponent.defense)
             self.attempt_attack(opponent, base_damage=base, logger=logger, label="Angriff")
