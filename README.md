@@ -6,11 +6,17 @@ Ein kleines **konsolenbasiertes RPG** in Python, das bewusst nach **SOLID-Prinzi
 
 ## 🎮 Features
 
-- **4 Klassen** zur Auswahl:
+- **5 Klassen** zur Auswahl:
   - 🛡️ **Tank** – viel Leben, viel Rüstung, weniger Schaden, besseres Heilen  
   - 🗡️ **Assassin** – hoher Schaden, Crit & Dodge, wenig Leben  
-  - 🔮 **Mage** – mehr Mana, mächtige Zauber  
-  - ⚔️ **Knight** – ausgewogener Allrounder  
+  - 🔮 **Mage** – mehr Mana, mächtige Zauber
+  - 🧛 **Vampire** - Lifesteal skalierend mit Schaden
+  - ⚔️ **Knight** – ausgewogener Allrounder
+
+- **3 Companions** zur Auswahl:
+  - 💚 **Heilender Sprite** – Heilt dich vor jedem Kampf um 10 HP  
+  - 💰 **Gold-Gremlin** – Gibt dir nach jedem Kampf 20% Bonus-Gold zusätzlich zum normalen Gewinn  
+  - 🛡️ **Opfergeist** – Rettet dich einmal pro Kampf vor dem sicheren Tod (du überlebst mit 1 HP und verlierst dabei keine HP) 
 
 - **Kampfsystem**:
   - Rundenbasiert mit Skills & Heiltränken  
@@ -165,6 +171,24 @@ Nach jedem Run wird ein Datensatz gespeichert:
 - **Level 12**
   - *Arkane Meisterschaft* – +10 Mana, +20% Spellpower  
   - 🌟 *Ultimate: Arkaner Sturm* – Massiver Magieschaden, ignoriert DEF/Armor (1× pro Kampf)  
+
+---
+
+### 🧛 Vampire
+- **Level 4**
+  - *Lebensraub* – Deine Angriffe heilen dich um 10% des verursachten Schadens
+  - *Blutdurst* – +6% Crit
+- **Level 6**
+  - *Blutexplosion* – Fähigkeit: Starker Angriff, Schaden steigt mit fehlender HP
+  - *Schattenhaut* – +8% Dodge
+- **Level 8**
+  - *Blutschild* – Fähigkeit: Schild absorbiert 25% des nächsten erlittenen Schadens
+- **Level 10**
+  - *Nachtgestalt* – +5% Crit, +5% Dodge
+  - *Dunkles Geschenk* – +3 ATK, +3% Crit
+- **Level 12**
+  - *Blutmeister* – +4 ATK, +5% Crit, +4% Dodge
+  - 🌟 *Ultimate: Blutritual* – Einmal pro Kampf: Sofortige Heilung auf 50% HP, +25% Crit für diese Runde
 
 ---
 

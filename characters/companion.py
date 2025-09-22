@@ -4,6 +4,10 @@ class Companion(Character):
     """
     Basisklasse für Begleiter. Jeder Companion kann mit use_ability() auf einen Kampf-Trigger reagieren.
     """
+
+    def take_turn(self, opponent: "Character", logger):
+        pass
+
     def __init__(self, name, hp, ability_type, description = "", ability_data=None):
         super().__init__(name, hp, attack=0, defense=0)
         self.ability_type = ability_type

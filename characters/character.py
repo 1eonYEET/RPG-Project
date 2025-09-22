@@ -27,7 +27,7 @@ class Character(ABC):
         if companion:
             # Companion kann Schaden verhindern
             #TODO FIX OPFERGEIST TRIGGER
-            prevent_damage = companion.use_ability(CompanionTrigger.ON_DAMAGE, self, attacker, logger)
+            prevent_damage = companion.use_ability(CompanionTrigger.ON_DAMAGE, self, amount, logger)
             if prevent_damage:
                 # Schaden wird komplett verhindert!
                 return
@@ -61,7 +61,7 @@ class Character(ABC):
         effective_for_log = target._apply_armor(raw_damage)
         logger.log(f"⚔️ {self.name} trifft {target.name} für {effective_for_log} Schaden.")
 
-        target.receive_damage(raw_damage, logger)
+        target.receive_damage(raw_damage, logger=logger)
         return True
 
     @abstractmethod

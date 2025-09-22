@@ -19,10 +19,10 @@ class SacrificeCompanion(Companion):
         super().reset_combat_flags()
         self.ability_data["saved_this_fight"] = False
 
-    def use_ability(self, trigger, player, enemy=None, logger=None):
+    def use_ability(self, trigger, player, amount=None, logger=None):
         if trigger == CompanionTrigger.ON_DAMAGE and not self.ability_data["saved_this_fight"]:
             # Prüfe, ob Schaden tödlich wäre
-            incoming_damage = getattr(enemy, "pending_damage", None)
+            incoming_damage = amount
             if incoming_damage is None:
                 incoming_damage = 0
             if player.hp - incoming_damage <= 0:
@@ -30,6 +30,6 @@ class SacrificeCompanion(Companion):
                 player.hp = 1
                 if logger:
                     logger.log(
-                        f"🛡️ {self.name} opfert sich und rettet {player.name} vor dem sicheren Tod! ({player.name} überlebt!")
+                        f"🛡️ {self.name} opfert sich und rettet {player.name} vor dem sicheren Tod! ({player.name} überlebt!)")
                 return True  # Schaden wird komplett verhindert!
         return False
